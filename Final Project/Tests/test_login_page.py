@@ -103,3 +103,4 @@ def test_correct_username_password(set_up):
     login_page = LoginPage(set_up.driver)
     current_url = login_page.correct_username_password()
     assert current_url == "https://www.saucedemo.com/inventory.html"
+    print("Logged In!")
