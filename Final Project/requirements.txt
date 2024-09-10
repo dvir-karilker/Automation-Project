@@ -1,0 +1,8 @@
+openpyxl
+PyAutoGUI
+pyperclip
+selenium
+pynput
+pytest
+pillow
+allure-pytest
