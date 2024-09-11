@@ -40,7 +40,7 @@ class Base:
         element.send_keys(text)
         return element
 
-    # Counting occurrences of a specific Element -
+    # Counting occurrences of a specific selected Element -
     def count_elements(self, by, value):
         elements = self.driver.find_elements(by, value)
         return len(elements)
