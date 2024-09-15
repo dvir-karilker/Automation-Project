@@ -79,3 +79,25 @@ class LoginPage(Base):
         self.set_element_value(By.ID, "password", "secret_sauce")
         self.click_element(By.ID, "login-button")
         return self.driver.current_url
+
+    def checking_price_exist(self):
+        items_num = self.count_elements(By.CSS_SELECTOR, 'div.inventory_item')
+        prices_num = self.count_elements(By.CSS_SELECTOR, 'div.inventory_item_price')
+        return items_num, prices_num
+
+    def checking_img_exist(self):
+        items_num = self.count_elements(By.CSS_SELECTOR, 'div.inventory_item')
+        img_num = self.count_elements(By.CSS_SELECTOR, 'img.inventory_item_img')
+        return items_num, img_num
+
+    def directing_item_page(self):
+        self.click_element(By.CSS_SELECTOR, "#item_4_title_link > div:nth-child(1)")
+        item_name = self.locate_element(By.CSS_SELECTOR, 'div.inventory_details_name').text
+        item_price = self.locate_element(By.CSS_SELECTOR, 'div.inventory_details_price').text
+        img_src = self.locate_element(By.CSS_SELECTOR, 'img.inventory_details_img').get_attribute("src")
+        return self.driver.current_url, item_name, item_price, img_src
+
+    def going_back_to_main(self):
+        self.click_element(By.ID, "back-to-products")
+        page_title = self.locate_element(By.CSS_SELECTOR, 'span.title').text
+        return self.driver.current_url, page_title

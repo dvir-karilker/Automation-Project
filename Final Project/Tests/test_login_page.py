@@ -15,7 +15,7 @@ def set_up():
     page.navigate_to_url(url)
 
     yield page
-    driver.quit()
+    # driver.quit()
 
 
 # We've added a small pause between EACH Test, Comment it out if not needed -
@@ -112,4 +112,38 @@ def test_correct_username_password(set_up):
     login_page = LoginPage(set_up.driver)
     current_url = login_page.correct_username_password()
     assert current_url == "https://www.saucedemo.com/inventory.html"
-    print("Logged In!")
+    # print("Logged In!")
+
+
+# Test 13
+def test_checking_price_exist(set_up):
+    login_page = LoginPage(set_up.driver)
+    items_num, prices_num = login_page.checking_price_exist()
+    assert items_num == prices_num
+    # print(f"{items_num} = {prices_num}")
+
+
+# Test 14
+def test_checking_img_exist(set_up):
+    login_page = LoginPage(set_up.driver)
+    items_num, img_num = login_page.checking_img_exist()
+    assert items_num == img_num
+
+
+# Test 15
+def test_directing_item_page(set_up):
+    login_page = LoginPage(set_up.driver)
+    current_url, item_name, item_price, img_src = login_page.directing_item_page()
+    assert current_url == "https://www.saucedemo.com/inventory-item.html?id=4"
+    assert item_name == "Sauce Labs Backpack"
+    assert item_price == "$29.99"
+    assert img_src == "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.0a0b85a3.jpg"
+    # print("\n", current_url, "\n", item_name, "\n", item_price, "\n", img_src)
+
+
+# Test 16
+def test_going_back_to_main(set_up):
+    login_page = LoginPage(set_up.driver)
+    current_url, page_title = login_page.going_back_to_main()
+    assert current_url == "https://www.saucedemo.com/inventory.html"
+    assert page_title == "Products"
