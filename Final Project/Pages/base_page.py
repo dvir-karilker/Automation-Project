@@ -9,8 +9,8 @@ class Base:
         self.driver = driver
         self.timeout = 10
 
-    # Finding an Element -
-    def find_element(self, by, value):
+    # Validating/Locating an Element -
+    def locate_element(self, by, value):
         return WebDriverWait(self.driver, self.timeout).until(
             EC.presence_of_element_located((by, value))
         )

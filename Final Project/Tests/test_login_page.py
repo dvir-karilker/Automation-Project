@@ -22,7 +22,7 @@ def set_up():
 @pytest.fixture(scope="function", autouse=True)
 def add_pause():
     yield
-    time.sleep(3)
+    time.sleep(1)
 
 
 # Test 1
@@ -32,26 +32,30 @@ def test_correct_location(set_up):
 
 # Test 2
 def test_find_username(set_up):
-    username_field = LoginPage.find_username(set_up.driver)
+    login_page = LoginPage(set_up.driver)
+    username_field = login_page.find_username()
     assert username_field is not None
 
 
 # Test 3
 def test_find_password(set_up):
-    password_field = LoginPage.find_password(set_up.driver)
+    login_page = LoginPage(set_up.driver)
+    password_field = login_page.find_password()
     assert password_field is not None
 
 
 # Test 4
 def test_find_placeholders(set_up):
-    username_placeholder, password_placeholder = LoginPage.find_placeholder(set_up.driver)
+    login_page = LoginPage(set_up.driver)
+    username_placeholder, password_placeholder = login_page.find_placeholder()
     assert username_placeholder is not None
     assert password_placeholder is not None
 
 
 # Test 5
 def test_find_value(set_up):
-    username_value, password_value = LoginPage.find_value(set_up.driver)
+    login_page = LoginPage(set_up.driver)
+    username_value, password_value = login_page.find_value()
     assert username_value == ""
     assert password_value == ""
 
@@ -66,36 +70,41 @@ def test_login_no_crede(set_up):
 # Test 7
 def test_login_no_password(set_up):
     login_page = LoginPage(set_up.driver)
-    current_url = login_page.login_no_password()
+    current_url, error_message = login_page.login_no_password()
     assert current_url == "https://www.saucedemo.com/"
+    assert error_message == "Epic sadface: Password is required"
 
 
 # Test 8
 def test_login_no_username(set_up):
     login_page = LoginPage(set_up.driver)
-    current_url = login_page.login_no_username()
+    current_url, error_message = login_page.login_no_username()
     assert current_url == "https://www.saucedemo.com/"
+    assert error_message == "Epic sadface: Username is required"
 
 
 # Test 9
 def test_correct_password_wrong_username(set_up):
     login_page = LoginPage(set_up.driver)
-    current_url = login_page.correct_password_wrong_username()
+    current_url, error_message = login_page.correct_password_wrong_username()
     assert current_url == "https://www.saucedemo.com/"
+    assert error_message == "Epic sadface: Username and password do not match any user in this service"
 
 
 # Test 10
 def test_correct_username_wrong_password(set_up):
     login_page = LoginPage(set_up.driver)
-    current_url = login_page.correct_username_wrong_password()
+    current_url, error_message = login_page.correct_username_wrong_password()
     assert current_url == "https://www.saucedemo.com/"
+    assert error_message == "Epic sadface: Username and password do not match any user in this service"
 
 
 # Test 11
 def test_wrong_username_wrong_password(set_up):
     login_page = LoginPage(set_up.driver)
-    current_url = login_page.wrong_username_wrong_password()
+    current_url, error_message = login_page.wrong_username_wrong_password()
     assert current_url == "https://www.saucedemo.com/"
+    assert error_message == "Epic sadface: Username and password do not match any user in this service"
 
 
 # Test 12
