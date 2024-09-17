@@ -141,7 +141,7 @@ def test_directing_item_page(set_up):
     # print("\n", current_url, "\n", item_name, "\n", item_price, "\n", img_src)
 
 
-# Test 166
+# Test 16
 def test_going_back_to_main(set_up):
     login_page = LoginPage(set_up.driver)
     current_url, page_title = login_page.going_back_to_main()
