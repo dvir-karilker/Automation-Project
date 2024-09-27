@@ -1,3 +1,4 @@
+from selenium.common import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -44,3 +45,13 @@ class Base:
     def count_elements(self, by, value):
         elements = self.driver.find_elements(by, value)
         return len(elements)
+
+    # Checking if Element is "Clickable" -
+    def is_element_clickable(self, by, value):
+        try:
+            WebDriverWait(self.driver, self.timeout).until(
+                EC.element_to_be_clickable((by, value))
+            )
+            return True
+        except TimeoutException:
+            return False
